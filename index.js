@@ -6,9 +6,9 @@ module.exports = function(app) {
     onHeaders(res, function() {
       const diff = process.hrtime(startTime)
       const headerString = []
-        .concat(this.getHeader('server-timing') || [])
+        .concat(this.getHeader('Server-Timing') || [])
         .concat(`mw=${diff[0] * 1e3 + diff[1] / 1e6}`).join(',')
-      this.setHeader('server-timing', headerString)
+      this.setHeader('Server-Timing', headerString)
     })
 
     next()
