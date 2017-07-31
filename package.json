@@ -1,0 +1,35 @@
+{
+  "name": "express-middleware-server-timing",
+  "version": "1.0.0",
+  "description": "Generate a server-timing header for every request. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cvazac/express-middleware-server-timing.git"
+  },
+  "keywords": [
+    "expressjs",
+    "performance",
+    "server",
+    "timing",
+    "servertiming",
+    "server-timing",
+    "monitor",
+    "monitoring",
+    "speed",
+    "middleware",
+    "express"
+  ],
+  "author": "Charles Vazac <cvazac@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cvazac/express-middleware-server-timing/issues"
+  },
+  "homepage": "https://github.com/cvazac/express-middleware-server-timing#readme",
+  "dependencies": {
+    "on-headers": "^1.0.1"
+  }
+}
