@@ -1,13 +1,16 @@
 const onHeaders = require('on-headers')
 
-module.exports = function(app) {
+module.exports = function(app, options) {
+  options = options || {}
+  const name = options.name || 'mw'
+
   app.use(function(req, res, next) {
     var startTime = process.hrtime()
     onHeaders(res, function() {
       const diff = process.hrtime(startTime)
       const headerString = []
         .concat(this.getHeader('Server-Timing') || [])
-        .concat(`mw=${diff[0] * 1e3 + diff[1] / 1e6}`).join(',')
+        .concat(`${name}=${diff[0] * 1e3 + diff[1] / 1e6}`).join(',')
       this.setHeader('Server-Timing', headerString)
     })
 

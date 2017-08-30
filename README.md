@@ -2,6 +2,8 @@
 
 Automagic expressjs middleware performance monitoring.
 
+There are many server-timing libraries out there for expressjs, but I couldn't find any that provided any out-of-the-box value. 
+
 ## Installation
 
 ```sh
@@ -14,10 +16,16 @@ npm install --save express-middleware-server-timing
 const app = express()
 
 // any time later
-require('express-middleware-server-timing')(app)
+require('express-middleware-server-timing')(app, [options])
 ```
 
-A server-timing entry named `mw` will be generated for every request that passes through express. 
+The following table describes the properties of the `options` object.
+
+| Property | Description                      | Type   | Default |
+|----------|----------------------------------|--------|---------|
+| `name`   | name of the server timing metric | String | "mw"    |
+
+A server-timing entry named `<name>` will be generated for every request that passes through express. 
 
 For browsers that suport server-timing (currently only [Chrome Canary](https://www.google.com/chrome/browser/canary.html)), the entries can be accessed like this:
 ```javascript
