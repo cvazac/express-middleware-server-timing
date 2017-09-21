@@ -15,7 +15,7 @@ npm install --save express-middleware-server-timing
 ```js
 const app = express()
 
-// any time later
+// any time before `app.listen(...)`
 require('express-middleware-server-timing')(app, [options])
 ```
 
@@ -48,11 +48,9 @@ For browsers that suport server-timing (currently only [Chrome Canary](https://w
 ['navigation', 'resource']
   .forEach(function(entryType) {
     performance.getEntriesByType(entryType).forEach(function({name: url, serverTiming}) {
-      serverTiming.find(function({name, duration}) {
-        if (name === 'mw') {
-          console.info('expressjs middleware =', JSON.stringify({url, entryType, duration}, null, 2))
-          return true
-        }
+      serverTiming.forEach(function({name, duration}) {
+        console.info('expressjs middleware =',
+          JSON.stringify({url, entryType, duration}, null, 2))
       })
     })
 })
