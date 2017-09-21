@@ -25,7 +25,23 @@ The following table describes the properties of the `options` object.
 |----------|----------------------------------|--------|---------|
 | `name`   | name of the server timing metric | String | "mw"    |
 
-A server-timing entry named `<name>` will be generated for every request that passes through express. 
+A server-timing entry named `<name>` will be generated for every request that passes through express.
+
+## Manual instrumentation
+
+To create a server-timing entry reporting the time it took to execute a syncronous method, try:
+```javascript
+serverTimingSync(function() {
+  // slow syncronous code here
+}, 'slowMethod1', 'sometimes this method is slow')
+```
+
+That yields this header:
+```
+Server-Timing: slowMethod1=[time in ms]; "sometimes this method is slow"
+```
+
+## In browser
 
 For browsers that suport server-timing (currently only [Chrome Canary](https://www.google.com/chrome/browser/canary.html)), the entries can be accessed like this:
 ```javascript
