@@ -20,10 +20,11 @@ module.exports = function(app, options = {}) {
 
       res.serverTimingSync = function(method, name, description) {
         const startTime = process.hrtime()
-        method()
+        const returnValue = method()
         const diff = process.hrtime(startTime)
         this.setHeader(headerName,
           toServerTimingEntry(name, diff, description))
+        return returnValue
       }
 
       next()

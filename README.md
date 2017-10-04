@@ -31,9 +31,12 @@ A server-timing entry named `<name>` will be generated for every request that pa
 
 To create a server-timing entry reporting the time it took to execute a syncronous method, try:
 ```javascript
-serverTimingSync(function() {
-  // slow syncronous code here
-}, 'slowMethod1', 'sometimes this method is slow')
+app.get(path, function (req, res, next) {
+  const result = res.serverTimingSync(function() {
+    // slow syncronous code here
+  }, 'slowMethod1', 'sometimes this method is slow')
+  // ...
+})
 ```
 
 That yields this header:
