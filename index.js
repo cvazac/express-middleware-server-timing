@@ -3,6 +3,7 @@ const headerName = 'Server-Timing'
 
 module.exports = function(app, options = {}) {
   const name = options.name || 'mw'
+  const description = options.description
   const listen = app.listen
 
   app.listen = function() {
@@ -10,7 +11,7 @@ module.exports = function(app, options = {}) {
     app.use(function(req, res, next) {
       const startTime = process.hrtime()
       onHeaders(res, function() {
-        appendHeader(res, startTime, name)
+        appendHeader(res, startTime, name, description)
       })
 
       const timers = {}

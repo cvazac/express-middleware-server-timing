@@ -21,11 +21,12 @@ require('express-middleware-server-timing')(app, [options])
 
 The following table describes the properties of the `options` object.
 
-| Property | Description                      | Type   | Default |
-|----------|----------------------------------|--------|---------|
-| `name`   | name of the server timing metric | String | "mw"    |
+| Property      | Description                             | Type   | Default     |
+|---------------|-----------------------------------------|--------|-------------|
+| `name`        | name of the server timing metric        | String | 'mw'        |
+| `description` | description of the server timing metric | String | `undefined` |
 
-A server-timing entry named `<name>` will be generated for every request that passes through express.
+A server-timing entry named `<name>` (with optional description of `<description>`) will be generated for every request that passes through express.
 
 ## Manual instrumentation
 
