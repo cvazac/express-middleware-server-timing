@@ -29,31 +29,52 @@ A server-timing entry named `<name>` will be generated for every request that pa
 
 ## Manual instrumentation
 
-To create a server-timing entry reporting the time it took to execute a syncronous method, try:
+### serverTimingStart / serverTimingStop
+To create a server-timing entry reporting the duration between two check points of the same response, try:
+
+```javascript
+
+app.get(path, function (req, res, next) {
+  res.serverTimingStart('foo', 'bar')
+
+  // some time later, maybe in different middleware handler
+  res.serverTimingStop('foo')
+
+  // ...
+})
+```
+A header like this will be written to the response:
+```
+Server-Timing: foo=[time in ms]; "bar"
+```
+
+### serverTimingSync
+To create a server-timing entry reporting the duration it took to execute a syncronous method, try:
 ```javascript
 app.get(path, function (req, res, next) {
   const result = res.serverTimingSync(function() {
     // slow syncronous code here
   }, 'slowMethod1', 'sometimes this method is slow')
+
   // ...
 })
 ```
 
-That yields this header:
+A header like this will be written to the response:
 ```
 Server-Timing: slowMethod1=[time in ms]; "sometimes this method is slow"
 ```
 
-## In browser
+## Browser Collection
 
 For browsers that suport server-timing (currently only [Chrome Canary](https://www.google.com/chrome/browser/canary.html)), the entries can be accessed like this:
 ```javascript
 ['navigation', 'resource']
   .forEach(function(entryType) {
     performance.getEntriesByType(entryType).forEach(function({name: url, serverTiming}) {
-      serverTiming.forEach(function({name, duration}) {
+      serverTiming.forEach(function({name, duration, description}) {
         console.info('expressjs middleware =',
-          JSON.stringify({url, entryType, duration}, null, 2))
+          JSON.stringify({url, entryType, name, duration, description}, null, 2))
       })
     })
 })

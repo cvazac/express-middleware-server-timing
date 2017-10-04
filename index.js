@@ -10,20 +10,33 @@ module.exports = function(app, options = {}) {
     app.use(function(req, res, next) {
       const startTime = process.hrtime()
       onHeaders(res, function() {
-        const diff = process.hrtime(startTime)
-        const headerString = []
-          .concat(this.getHeader(headerName) || [])
-          .concat(toServerTimingEntry(name, diff))
-          .join(',')
-        this.setHeader(headerName, headerString)
+        appendHeader(res, startTime, name)
       })
+
+      const timers = {}
+      res.serverTimingStart = function(name, description) {
+        const startTime = process.hrtime()
+        timers[name] = {
+          startTime,
+          description,
+        }
+      }
+
+      res.serverTimingStop = function(name) {
+        const timer = timers[name]
+        if (!timer) {
+          console.warn(`no timer named ${name}`)
+          return
+        }
+
+        appendHeader(this, timer.startTime, name, timer.description)
+        delete timers[name]
+      }
 
       res.serverTimingSync = function(method, name, description) {
         const startTime = process.hrtime()
         const returnValue = method()
-        const diff = process.hrtime(startTime)
-        this.setHeader(headerName,
-          toServerTimingEntry(name, diff, description))
+        appendHeader(this, startTime, name, description)
         return returnValue
       }
 
@@ -45,4 +58,13 @@ function toServerTimingEntry(name, diff, description) {
     entry += `; ${JSON.stringify(description)}`
   }
   return entry
+}
+
+function appendHeader(res, startTime, name, description) {
+  const diff = process.hrtime(startTime)
+  const headerString = []
+    .concat(res.getHeader(headerName) || [])
+    .concat(toServerTimingEntry(name, diff, description))
+    .join(',')
+  res.setHeader(headerName, headerString)
 }
