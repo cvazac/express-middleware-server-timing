@@ -46,7 +46,7 @@ app.get(path, function (req, res, next) {
 ```
 A header like this will be written to the response:
 ```
-Server-Timing: foo=[time in ms]; "bar"
+Server-Timing: foo; duration=[time in ms]; description="bar"
 ```
 
 ### serverTimingSync
@@ -63,7 +63,7 @@ app.get(path, function (req, res, next) {
 
 A header like this will be written to the response:
 ```
-Server-Timing: slowMethod1=[time in ms]; "sometimes this method is slow"
+Server-Timing: slowMethod1; duration=[time in ms]; description="sometimes this method is slow"
 ```
 
 ## Browser Collection
