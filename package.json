@@ -1,6 +1,6 @@
 {
   "name": "express-middleware-server-timing",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generate a server-timing header for every request. ",
   "main": "index.js",
   "scripts": {
