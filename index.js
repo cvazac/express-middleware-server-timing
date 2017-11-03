@@ -54,11 +54,13 @@ module.exports = function(app, options = {}) {
 }
 
 function toServerTimingEntry(name, diff, description) {
-  let entry = `${name}=${diff[0] * 1e3 + diff[1] / 1e6}`
+  const entry = []
+  entry.push(name)
+  entry.push(`duration=${diff[0] * 1e3 + diff[1] / 1e6}`)
   if (description) {
-    entry += `; ${JSON.stringify(description)}`
+    entry.push(`description=${JSON.stringify(description)}`)
   }
-  return entry
+  return entry.join('; ')
 }
 
 function appendHeader(res, startTime, name, description) {
