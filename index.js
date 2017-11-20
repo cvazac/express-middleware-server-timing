@@ -56,9 +56,9 @@ module.exports = function(app, options = {}) {
 function toServerTimingEntry(name, diff, description) {
   const entry = []
   entry.push(name)
-  entry.push(`duration=${diff[0] * 1e3 + diff[1] / 1e6}`)
+  entry.push(`dur=${diff[0] * 1e3 + diff[1] / 1e6}`)
   if (description) {
-    entry.push(`description=${JSON.stringify(description)}`)
+    entry.push(`desc=${JSON.stringify(description)}`)
   }
   return entry.join('; ')
 }
