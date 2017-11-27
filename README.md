@@ -46,7 +46,7 @@ app.get(path, function (req, res, next) {
 ```
 A header like this will be written to the response:
 ```
-Server-Timing: foo; duration=[time in ms]; description="bar"
+Server-Timing: foo; dur=[time in ms]; desc="bar"
 ```
 
 ### serverTimingSync
@@ -84,4 +84,3 @@ For browsers that suport server-timing (currently only [Chrome Canary](https://w
 ## License
 
 MIT
-
