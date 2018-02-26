@@ -49,7 +49,7 @@ module.exports = function(app, options = {}) {
     app._router.stack.unshift(app._router.stack.pop())
 
     // let the listening begin
-    listen.apply(app, arguments)
+    return listen.apply(app, arguments)
   }
 }
 
