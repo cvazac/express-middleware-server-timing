@@ -63,12 +63,12 @@ app.get(path, function (req, res, next) {
 
 A header like this will be written to the response:
 ```
-Server-Timing: slowMethod1; duration=[time in ms]; description="sometimes this method is slow"
+Server-Timing: slowMethod1; dur=[time in ms]; desc="sometimes this method is slow"
 ```
 
 ## Browser Collection
 
-For browsers that suport server-timing (currently only [Chrome Canary](https://www.google.com/chrome/browser/canary.html)), the entries can be accessed like this:
+For browsers that suport server-timing (Chrome 65+, Opera 52+), the entries can be accessed like this:
 ```javascript
 ['navigation', 'resource']
   .forEach(function(entryType) {
