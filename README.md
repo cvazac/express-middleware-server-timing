@@ -25,6 +25,7 @@ The following table describes the properties of the `options` object.
 |---------------|-----------------------------------------|--------|-------------|
 | `name`        | name of the server timing metric        | String | 'mw'        |
 | `description` | description of the server timing metric | String | `undefined` |
+| `active`      | set `false` if you want to disable      | Boolean| `true`      |
 
 A server-timing entry named `<name>` (with optional description of `<description>`) will be generated for every request that passes through express.
 
@@ -78,6 +79,14 @@ For browsers that suport server-timing (Chrome 65+, Opera 52+), the entries can 
           JSON.stringify({url, entryType, name, duration, description}, null, 2))
       })
     })
+})
+```
+
+## Decide to use it regarding to running environment
+
+```javascript
+require('express-middleware-server-timing')(app, {
+  active: process.env.NODE_ENV === 'development'
 })
 ```
 
