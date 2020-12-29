@@ -5,7 +5,7 @@ module.exports = function(app, options = {}) {
   const name = options.name || 'mw'
   const description = options.description
   const listen = app.listen
-  const active = app.active !== false
+  const disabled = app.disabled === true
   
   app.listen = function() {
     // add our middleware to the end
@@ -65,7 +65,7 @@ function toServerTimingEntry(name, diff, description) {
 }
 
 function appendHeader(res, startTime, name, description) {
-  if (!active) {
+  if (disabled) {
     return
   }
   const diff = process.hrtime(startTime)
