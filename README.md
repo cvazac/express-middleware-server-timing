@@ -82,7 +82,7 @@ For browsers that suport server-timing (Chrome 65+, Opera 52+), the entries can 
 })
 ```
 
-## Decide to use it regarding to running environment
+## Conditionally disable (example: based on environment)
 
 ```javascript
 require('express-middleware-server-timing')(app, {
